@@ -1,14 +1,17 @@
 #!/usr/bin/env perl
+package IoPop;
+
 use strict;
 use warnings;
 
 use open ':encoding(UTF-8)';
-my @keys = ('comments', 'likes', 'reactions');
-my @post = ();
+my %W = (comments => 1, likes => 1, reactions => 1);
+my @keys = sort keys %W;
 
 sub post {
-	open(my $fh, '<', 'IoPop.txt') or die "$!\n";
+	open(my $fh, '<', @_ ? shift : 'IoPop.txt') or die "$!\n";
 
+	my @post = ();
 	while (<$fh>) {
 		chomp;
 
@@ -20,16 +23,23 @@ sub post {
 			chomp($_ = <$fh>);
 			push(@{$$post{text}}, $_);
 		}
+		$$post{post} = join("\n", @{$$post{text}});
 
 		$$post{$_} = int(<$fh>) foreach (@keys);
+		$$post{value} = 0;
+		$$post{value} += $W{$_} * ($$post{$_} // 0) foreach (keys %W);
 		push(@post, $post);
 	}
 
 	close $fh;
+	return \@post;
 }
 
 sub submit {
-	open(my $fh, '>', 'IoPop.txt') or die "$!\n";
+	my $post = shift;
+	my @post = @$post;
+
+	open(my $fh, '>', @_ ? shift : 'IoPop.txt') or die "$!\n";
 	local *STDOUT = $fh;
 
 	foreach my $post (@post) {
@@ -41,3 +51,5 @@ sub submit {
 
 	close $fh;
 }
+
+1;

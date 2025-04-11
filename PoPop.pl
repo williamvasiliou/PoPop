@@ -6,7 +6,7 @@ use Math::Trig qw(tanh);
 
 my @C = split(' ', $C);
 my %V = map { $_ => 1 } @C;
-my @V = sort map { $_ } keys %V;
+my @V = sort map keys %V;
 
 my %Wf = map { $_ => { map { $_ => 0 } @V } } @V;
 my %Wi = map { $_ => { map { $_ => 0 } @V } } @V;
