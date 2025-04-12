@@ -1,4 +1,3 @@
-#!/usr/bin/env perl
 package IoPop;
 
 use strict;
@@ -43,7 +42,7 @@ sub submit {
 	local *STDOUT = $fh;
 
 	foreach my $post (@post) {
-		my @text = @{$$post{text}};
+		my @text = split("\n", $$post{post});
 		print(scalar @text . "\n");
 		print("$_\n") foreach (@text);
 		print("$$post{$_}\n") foreach (@keys);

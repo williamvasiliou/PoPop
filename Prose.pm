@@ -1,4 +1,3 @@
-#!/usr/bin/env perl
 package Prose;
 
 use strict;
@@ -190,7 +189,7 @@ sub prose {
 			}
 		}
 
-		my $N = pick($C->{C}{$C[$i]}, \@N);
+		my $N = pick($C->{C}{$C[$#C]}, \@N);
 		if (@$N) {
 			push(@C, @$N);
 		} else {
