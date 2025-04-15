@@ -1,28 +1,49 @@
-#!/usr/bin/env perl
+package PoPop;
+
 use strict;
 use warnings;
 
 use Math::Trig qw(tanh);
 
-my @C = split(' ', $C);
-my %V = map { $_ => 1 } @C;
-my @V = sort map keys %V;
+sub new {
+	my @C = split(' ', shift);
+	my %V = map { $_ => 1 } @C;
+	my @V = sort keys %V;
 
-my %Wf = map { $_ => { map { $_ => 0 } @V } } @V;
-my %Wi = map { $_ => { map { $_ => 0 } @V } } @V;
-my %Wo = map { $_ => { map { $_ => 0 } @V } } @V;
-my %Wc = map { $_ => { map { $_ => 0 } @V } } @V;
+	my %Wf = map { $_ => { map { $_ => 0 } @V } } @V;
+	my %Wi = map { $_ => { map { $_ => 0 } @V } } @V;
+	my %Wo = map { $_ => { map { $_ => 0 } @V } } @V;
+	my %Wc = map { $_ => { map { $_ => 0 } @V } } @V;
 
-my %Uf = map { $_ => { map { $_ => 0 } @V } } @V;
-my %Ui = map { $_ => { map { $_ => 0 } @V } } @V;
-my %Uo = map { $_ => { map { $_ => 0 } @V } } @V;
-my %Uc = map { $_ => { map { $_ => 0 } @V } } @V;
+	my %Uf = map { $_ => { map { $_ => 0 } @V } } @V;
+	my %Ui = map { $_ => { map { $_ => 0 } @V } } @V;
+	my %Uo = map { $_ => { map { $_ => 0 } @V } } @V;
+	my %Uc = map { $_ => { map { $_ => 0 } @V } } @V;
 
-my @f = ({ map { $_ => 0 } @V });
-my @i = ({ map { $_ => 0 } @V });
-my @o = ({ map { $_ => 0 } @V });
-my @c = ({ map { $_ => 0 } @V }, { map { $_ => 0 } @V });
-my @h = ({ map { $_ => 0 } @V }, { map { $_ => 0 } @V });
+	my @f = ({ map { $_ => 0 } @V });
+	my @i = ({ map { $_ => 0 } @V });
+	my @o = ({ map { $_ => 0 } @V });
+	my @c = ({ map { $_ => 0 } @V }, { map { $_ => 0 } @V });
+	my @h = ({ map { $_ => 0 } @V }, { map { $_ => 0 } @V });
+
+	{
+		C => \@C,
+		V => \@V,
+		Wf => \%Wf,
+		Wi => \%Wi,
+		Wo => \%Wo,
+		Wc => \%Wc,
+		Uf => \%Uf,
+		Ui => \%Ui,
+		Uo => \%Uo,
+		Uc => \%Uc,
+		f => \@f,
+		i => \@i,
+		o => \@o,
+		c => \@c,
+		h => \@h,
+	}
+}
 
 sub sigmoid {
 	return 1 / (1 + 2.718281828459045 ** (-shift));
