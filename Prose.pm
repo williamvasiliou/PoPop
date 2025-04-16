@@ -169,11 +169,17 @@ sub prose {
 
 	my $M = int shift;
 	my $N = $$C{N};
-	my $r = rand;
-	foreach (@V) {
-		if ($r < $V{$_}) {
-			push(@C, $_);
-			last;
+
+	if (@_) {
+		my $r = shift;
+		push(@C, @$r);
+	} else {
+		my $r = rand;
+		foreach (@V) {
+			if ($r < $V{$_}) {
+				push(@C, $_);
+				last;
+			}
 		}
 	}
 
