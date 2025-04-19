@@ -5,8 +5,20 @@ use warnings;
 
 sub new {
 	my @C = split(//, shift);
+	my $N = int shift;
+	my $V = @C % 2 ? [
+		(@C >> 1) * (((@C ** $N) - 1) / (@C - 1)),
+	] : [
+		(@C >> 1) * (@C ** ($N - 1)),
+	];
 
-	return \@C;
+	push(@$V, -$$V[0]);
+	{
+		C => \@C,
+		M => (@C ** $N) - 1,
+		N => $N,
+		V => $V,
+	}
 }
 
 sub index {
