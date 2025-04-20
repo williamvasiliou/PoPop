@@ -41,7 +41,7 @@ sub divide {
 	my $N = 0;
 	$N += $$_{value} foreach (@post);
 	for (my $i = 1; $i < @post; ++$i) {
-		$post[$i]->{value} += $post[$i - 1]->{value};
+		$post[$i]{value} += $post[$i - 1]{value};
 	}
 	$$_{value} /= $N foreach (@post);
 }
